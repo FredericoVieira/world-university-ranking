@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.header {
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("/static/img/university-bg.jpg");
+    background-position: 50% 70%;
+    height:100%;
+    min-height: 500px;
+    color: #ccc;
+    text-align: center;
+    padding-top: 200px;
+}
+
+.header h1 {
+    margin-bottom: 40px;
+}
+
+.header ul li {
+    list-style-type: none;
+    margin-right: 30px;
+}
+
+.header ul li i {
+    color: #ccc;
+}
+
+.header ul li i:hover {
+    color: #555;
+}
+
+#welcome .background-white {
+    background-color: #fff;
+    min-height: 250px;
+}
+
+.footer .background-black {
+    background-color: #000;
+}
