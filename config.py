@@ -1,3 +1,6 @@
+from os import getenv
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -5,7 +8,7 @@ class Config(object):
 
 
 class Production(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL', '')
 
 
 class Development(Config):
