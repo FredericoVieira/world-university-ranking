@@ -90,4 +90,51 @@ var UniveristyRankingTable = function () {
     });
 };
 
+var mountGraphsAnalyses = function () {
+    var top_univeristies = [];
+
+    $.ajax({
+            url: '/api/university-ranking',
+            success: function (response) {
+                for (var i = 0; i < 25; i++) {
+                    top_univeristies.push({
+                        'world_rank': response.data[i].world_rank,
+                        'national_rank': response.data[i].national_rank,
+                        'id': response.data[i].id,
+                        'institution':response.data[i].institution,
+                        'country': !response.data[i].country,
+                        'score':response.data[i].score,
+                    });
+                };
+
+                var visualization = d3plus.viz()
+                    .container("#bar-top-universities")
+                    .data(top_univeristies)
+                    .type("bar")
+                    .id("institution")
+                    .x({"value": "institution", "label": false, "grid": false})
+                    .y({"value": "score", "label": false, "range": [0, 100]})
+                    .labels({"padding": 30})
+                    .order({"sort": "asc", "value":"score"})
+                    .color({"scale": ["#1DB954"]})
+                    .background("#fff")
+                    .axes({"background": {"color": "#fff"}})
+                    .title("Top 25 Universities")
+                    .title({"font":{ "size": "25px", "family": "Raleway" }})
+                    .draw()
+            }
+    });
+}
+
 window.universityRankingTable = new UniveristyRankingTable();
+
+mountGraphsAnalyses();
+
+$(document).ready(function() {
+    $.localScroll({
+        offset: 0,
+        duration: 1200
+    });
+});
+
+

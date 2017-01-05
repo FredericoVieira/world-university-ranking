@@ -67,7 +67,8 @@ hr {
 
 
 
-#graphs {
+#graphs #bar-top-universities {
+    height: 700px;
 
 }
 
@@ -79,10 +80,13 @@ hr {
 
 #about .row {
     text-align: center;
+    margin-bottom: 5px;
+
 }
 
 #about .row a {
     color: #ccc;
+    margin-bottom: 10px;
 }
 
 #about .row a:hover {
