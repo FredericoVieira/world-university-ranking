@@ -53,6 +53,7 @@ hr {
 
 #welcome p {
     line-height: 30px;
+    margin-bottom: 30px;
 }
 
 #tables .year-selector {
@@ -66,9 +67,9 @@ hr {
     color: #ccc;
 }
 
-#graphs #bar-top-universities {
+#graphs .graphs-bs div {
     height: 700px;
-
+    margin-bottom: 50px;
 }
 
 #about h2,

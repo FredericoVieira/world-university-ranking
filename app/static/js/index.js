@@ -91,44 +91,66 @@ var UniveristyRankingTable = function () {
 };
 
 var mountGraphsAnalyses = function () {
-    var top_univeristies = [];
+    $.ajax({
+        url: '/api/university-ranking/',
+        success: function (response) {
+            var visualization = d3plus.viz()
+                .container("#treemap-top-countries")
+                .data(response.data)
+                .type("tree_map")
+                .id(["country", "institution"])
+                .size("score")
+                .color("score")
+                .title("Treemap - Universities by Country")
+                .title({"font":{ "size": "25px", "family": "Raleway" }})
+                .time({"value": "year", "solo": 2012})
+                .draw()
+
+            var visualization = d3plus.viz()
+                .container("#bar-top-countries")
+                .data(response.data)
+                .type("bar")
+                .id("country")
+                .x({"value": "country", "label": false, "grid": false})
+                .aggs({"score": "median"})
+                .y({"value": "score", "label": false, "range": [0, 100]})
+                .labels({"padding": 30})
+                .order({"sort": "asc", "value":"score"})
+                .color({"scale": ["#aaa"]})
+                .background("#fff")
+                .axes({"background": {"color": "#fff"}})
+                .title("Bar - Median of Univeristies by Country")
+                .title({"font":{ "size": "25px", "family": "Raleway" }})
+                .time({"value": "year", "solo": 2012})
+                .draw()
+        }
+    });
 
     $.ajax({
-            url: '/api/university-ranking',
-            success: function (response) {
-                for (var i = 0; i < 25; i++) {
-                    top_univeristies.push({
-                        'world_rank': response.data[i].world_rank,
-                        'national_rank': response.data[i].national_rank,
-                        'id': response.data[i].id,
-                        'institution':response.data[i].institution,
-                        'country': !response.data[i].country,
-                        'score':response.data[i].score,
-                    });
-                };
-
-                var visualization = d3plus.viz()
-                    .container("#bar-top-universities")
-                    .data(top_univeristies)
-                    .type("bar")
-                    .id("institution")
-                    .x({"value": "institution", "label": false, "grid": false})
-                    .y({"value": "score", "label": false, "range": [0, 100]})
-                    .labels({"padding": 30})
-                    .order({"sort": "asc", "value":"score"})
-                    .color({"scale": ["#1DB954"]})
-                    .background("#fff")
-                    .axes({"background": {"color": "#fff"}})
-                    .title("Top 25 Universities")
-                    .title({"font":{ "size": "25px", "family": "Raleway" }})
-                    .draw()
-            }
+        url: '/api/university-ranking/top25',
+        success: function (response) {
+            var visualization = d3plus.viz()
+                .container("#line-top-universities")
+                .data(response.data)
+                .type("line")
+                .id("institution")
+                .text("institution")
+                .x({"value": "year", "label": false, "grid": false})
+                .y({"value": "score", "label": false, "range": [55, 100]})
+                .labels({"padding": 30})
+                .order({"sort": "asc", "value":"score"})
+                .background("#fff")
+                .axes({"background": {"color": "#fff"}})
+                .title("Line - Top 25 Universities")
+                .title({"font":{ "size": "25px", "family": "Raleway" }})
+                .draw()
+        }
     });
 }
 
 window.universityRankingTable = new UniveristyRankingTable();
 
-mountGraphsAnalyses();
+mountGraphsAnalyses(2012);
 
 $(document).ready(function() {
     $.localScroll({
