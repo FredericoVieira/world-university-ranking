@@ -1,21 +1,3 @@
-var headers = {
-    0: "alumni_employment",
-    1: "broad_impact",
-    2: "citations",
-    3: "country",
-    4: "id",
-    5: "influence",
-    6: "institution",
-    7: "national_rank",
-    8: "patents",
-    9: "publications",
-    10: "quality_of_education",
-    11: "quality_of_faculty",
-    12: "score",
-    13: "world_rank",
-    14: "year"
-}
-
 var UniveristyRankingTable = function () {
     this.tableId = '#univeristy-ranking-table';
 
@@ -131,7 +113,7 @@ var mountGraphsAnalyses = function () {
         success: function (response) {
             var visualization = d3plus.viz()
                 .container("#line-top-universities")
-                .data(response.data)
+                .data({"value":response.data, "stroke":{"width":2}})
                 .type("line")
                 .id("institution")
                 .text("institution")
