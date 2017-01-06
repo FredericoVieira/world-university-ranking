@@ -5,16 +5,15 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL', '')
 
 
 class Production(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL', '')
 
 
 class Development(Config):
     DEBUG = True
-    #SQLALCHEMY_DATABASE_URI = 'postgresql:///worlduniversityranking'
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///worlduniversityranking'
 
 
 class Testing(Config):
